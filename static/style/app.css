@@ -1,0 +1,50 @@
+/* ==========================================
+   Global styles
+  ======================================== */
+
+#app {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+.has-text-italic {
+  font-style: italic;
+}
+
+.button.is-primary {
+  font-weight: 600;
+}
+
+.fa {
+  vertical-align: middle;
+}
+
+.button .fa {
+  margin-left: -0.1em;
+  margin-right: 0.4em;
+}
+
+.title.address {
+  overflow-wrap: break-word;
+}
+
+.title-decorator {
+  font-size: 0.9rem;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  margin-bottom: 0.2em;
+  font-style: italic;
+  font-weight: normal;
+}
+
+abbr {
+  text-decoration: none;
+  border-bottom: 1px dotted #ddd;
+}
+
+::selection {
+  background: #ddd; /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+  background: #ddd; /* Gecko Browsers */
+}
