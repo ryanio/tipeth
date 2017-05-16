@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Web3Unavailable from '@/components/Web3Unavailable'
-import NewAddress from '@/components/NewAddress'
 import Address from '@/components/Address'
+import NewAddress from '@/components/NewAddress'
+import InvalidAddress from '@/components/InvalidAddress'
 import History from '@/components/History'
 import About from '@/components/About'
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/:privateKey',
       name: 'Address',
       component: Address
+    },
+    {
+      path: '/invalid',
+      name: 'InvalidAddress',
+      component: InvalidAddress
     }
   ]
 })

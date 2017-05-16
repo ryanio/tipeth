@@ -73,12 +73,19 @@ export default {
       showTransferForm: null
     }
   },
-  created: function () {
-    this.addPrivateKeyToHistory(this.privateKey)
-  },
   computed: {
     address: function () {
-      return this.privateKeyToAddress(this.privateKey)
+      var address
+
+      try {
+        address = this.privateKeyToAddress(this.privateKey)
+      } catch (e) {
+        this.$router.push({name: 'InvalidAddress'})
+      }
+
+      this.addPrivateKeyToHistory(this.privateKey)
+
+      return address
     },
     balanceCurrency: function () {
       return this.weiToCurrency(this.balanceWei, true)
