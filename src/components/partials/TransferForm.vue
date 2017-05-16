@@ -416,4 +416,8 @@ export default {
 .button-container {
   margin-top: 0.75rem;
 }
+
+input:disabled {
+  cursor: text;
+}
 </style>
