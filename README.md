@@ -1,6 +1,6 @@
 # tipeth
 
-> An Ethereum project
+> An Ethereum dapp
 
 ## Build Setup
 
