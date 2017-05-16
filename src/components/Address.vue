@@ -81,6 +81,7 @@ export default {
         address = this.privateKeyToAddress(this.privateKey)
       } catch (e) {
         this.$router.push({name: 'InvalidAddress'})
+        return
       }
 
       this.addPrivateKeyToHistory(this.privateKey)
