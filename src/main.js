@@ -22,6 +22,7 @@ Vue.use(currencyMixin)
 
 // Config
 Vue.config.productionTip = false
+Vue.http.options.credentials = false
 
 // CSS
 import '../node_modules/bulma/css/bulma.css'
