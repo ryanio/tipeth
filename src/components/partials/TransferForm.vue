@@ -365,7 +365,6 @@ export default {
       this.errorMessage = null
 
       const transactionData = {
-        nonce: window.web3.toHex(this.nonce),
         gasPrice: window.web3.toHex(this.gasPrice),
         gas: window.web3.toHex(this.gasLimit),
         from: this.addHexPrefix(this.address),
