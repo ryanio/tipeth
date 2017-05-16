@@ -39,14 +39,14 @@ export default new Router({
       component: About
     },
     {
-      path: '/:privateKey',
-      name: 'Address',
-      component: Address
-    },
-    {
       path: '/invalid',
       name: 'InvalidAddress',
       component: InvalidAddress
+    },
+    {
+      path: '/:privateKey',
+      name: 'Address',
+      component: Address
     }
   ]
 })
