@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container">
           <h2 class="subtitle">
-            Give or send money to anyone.
+            Give money easily, freely.
           </h2>
 
           <router-link to="/new" class="button is-success">
@@ -17,7 +17,7 @@
 
     <section class="section learn-more">
       <div class="container">
-        <div class="tile is-parent notification is-success" v-show="showLearnMore">
+        <div class="tile is-parent notification is-info" v-show="showLearnMore">
           <div class="content">
             <p class="title is-spaced">
               tipeth is an app connected to the
@@ -26,7 +26,7 @@
             <p class="subtitle">
               A tipeth url contains the key
               <input value="https://tipeth.com/ac7aab7dd3ad5cac72eb6590ade8aee020c649fe31e2be48c32e83ec696d48fb" v-on:click="inputSelectAll">
-              that unlocks the balance inside. Easy to share through apps, messengers, games and online communities <small>like reddit!</small>
+              that unlocks the balance inside. Easy to share over any chat, messenger or app and fun for games and online communities <small>like reddit!</small>
             </p>
             <div class="content">
               <p>
@@ -76,7 +76,6 @@ export default {
 
 .learn-more .tile .subtitle {
   font-size: 1.2rem;
-  line-height: 1.7;
 }
 
 .learn-more .tile .currently {
@@ -86,12 +85,12 @@ export default {
 
 input {
   color: #f8f8f8;
-  background-color: #1eb151;
+  background-color: #699ee2;
   font-size: 0.9rem;
   border: 0;
-  padding: 0.5rem;
+  padding: 0.4rem;
   border-radius: 0.2rem;
-  margin: 0 0.2rem;
+  margin: 0 0.1rem;
   width: 13rem;
   text-overflow: ellipsis;
 }
