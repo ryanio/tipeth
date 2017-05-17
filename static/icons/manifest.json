@@ -1,5 +1,5 @@
 {
-    "name": "tipeth",
+    "name": "",
     "icons": [
         {
             "src": "/static/icons/android-chrome-192x192.png",
@@ -7,8 +7,8 @@
             "type": "image/png"
         },
         {
-            "src": "/static/icons/android-chrome-384x384.png",
-            "sizes": "384x384",
+            "src": "/static/icons/android-chrome-256x256.png",
+            "sizes": "256x256",
             "type": "image/png"
         }
     ],
