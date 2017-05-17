@@ -3,11 +3,9 @@
     <section class="hero is-light">
         <div class="hero-body">
           <div class="container">
-            <h1 class="title is-spaced">
+            <h1 class="title">
               about
             </h1>
-            <h2 class="subtitle">
-            </h2>
           </div>
         </div>
       </section>
@@ -39,6 +37,7 @@ export default {
 </script>
 
 <style scoped>
+
 .fa-heart {
   vertical-align: top;
 }

@@ -43,6 +43,10 @@ nav {
   margin: 1rem 0;
 }
 
+.logo {
+  font-size: 110%;
+}
+
 a.is-tab.router-link-active {
   border-bottom: 3px solid #00d1b2;
   color: #00d1b2;
