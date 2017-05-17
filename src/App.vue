@@ -20,7 +20,7 @@
     <footer class="footer">
       <div class="container">
       <router-link to="/about" class="version-number">
-        v1.0.01
+        v1.0.02
       </router-link>
       </div>
     </footer>
