@@ -60,7 +60,7 @@
             <div class="latest-block">
               <div v-if="latestBlock">
                 <strong>Latest block:</strong>
-                {{ latestBlock.parentHash }}
+                {{ latestBlock.hash }}
               </div>
               <div v-else>
                 <strong>Transaction hash:</strong>
