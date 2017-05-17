@@ -3,10 +3,6 @@
     <section class="hero is-light">
       <div class="hero-body">
         <div class="container">
-          <h2 class="subtitle">
-            Give money easily, freely.
-          </h2>
-
           <router-link to="/new" class="button is-success">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> New tipeth
           </router-link>
@@ -26,7 +22,10 @@
             <p class="subtitle">
               A tipeth url contains the key
               <input value="https://tipeth.com/ac7aab7dd3ad5cac72eb6590ade8aee020c649fe31e2be48c32e83ec696d48fb" v-on:click="inputSelectAll">
-              that unlocks the balance inside. Easy to share over any chat, messenger or app and fun for games and online communities <small>like reddit!</small>
+              that unlocks the balance inside.
+            </p>
+            <p class="subtitle">
+              Easy to share over any chat, messenger, or app and fun for games and online communities <small>like reddit!</small>
             </p>
             <div class="content">
               <p>
