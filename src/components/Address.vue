@@ -29,13 +29,13 @@
       <section class="section">
         <div class="container">
          <div class="button-container">
-           <a class="button" v-on:click="showTransferForm !== 'deposit' ? showTransferForm = 'deposit' : showTransferForm = null">
-             <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-             Deposit
-           </a>
            <a class="button is-success is-bold" v-on:click="showTransferForm !== 'withdraw' ? showTransferForm = 'withdraw' : showTransferForm = null">
              <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
              Withdraw
+           </a>
+           <a class="button" v-on:click="showTransferForm !== 'deposit' ? showTransferForm = 'deposit' : showTransferForm = null">
+             <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+             Deposit
            </a>
          </div>
 
