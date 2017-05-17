@@ -20,7 +20,7 @@
     <footer class="footer">
       <div class="container">
       <router-link to="/about" class="version-number">
-        v1.0.02
+        v1.0.03
       </router-link>
       </div>
     </footer>
@@ -58,5 +58,4 @@ a.is-tab.router-link-active {
 .footer a {
   color: #4a4a4a;
 }
-
 </style>
