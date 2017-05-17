@@ -79,7 +79,16 @@ const mixin = {
 
       return address
     },
-    signSerializeTransactionDataHex: function (transactionData, privateKey) {
+    signRawTransactionData: function (transactionData, privateKey) {
+      // format transactionData
+      Object.keys(transactionData).forEach((key, index) => {
+        if (key === 'gasPrice' || key === 'gas' || key === 'value') {
+          transactionData[key] = window.web3.toHex(transactionData[key])
+        } else if (key === 'from' || key === 'to') {
+          transactionData[key] = this.addHexPrefix(transactionData[key])
+        }
+      })
+
       const transaction = new EthereumTx(transactionData)
       const privateKeyBuffer = new Buffer(privateKey, 'hex')
 

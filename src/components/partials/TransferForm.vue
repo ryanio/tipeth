@@ -51,19 +51,27 @@
         </div>
       </div>
       <div v-else>
-
         <div class="transaction-status">
-          <div v-if="!transactionConfirmed">
-            Transaction sent! Watching network for confirmation... <i class="fa fa-circle-o-notch fa-spin fa-fw has-text-success"></i> 
+          <div v-if="transactionConfirmed">
+            Transaction confirmed! <i class="fa fa-check has-text-success"></i>
           </div>
           <div v-else>
-            Transaction confirmed! <i class="fa fa-check has-text-success"></i>
+            Transaction sent! Watching network for confirmation... <i class="fa fa-circle-o-notch fa-spin fa-fw has-text-success"></i> 
+            <div class="latest-block">
+              <div v-if="latestBlock">
+                <strong>Latest block:</strong>
+                {{ latestBlock.parentHash }}
+              </div>
+              <div v-else>
+                <strong>Transaction hash:</strong>
+                {{ transactionHash }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-   </div>
- </div>
- </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -71,8 +79,6 @@ import BigNumber from 'bignumber.js'
 
 export default {
   name: 'TransferForm',
-  components: {
-  },
   props: {
     transferType: {},
     address: {},
@@ -83,9 +89,6 @@ export default {
       default: true
     }
   },
-  created: function () {
-    this.selectedCurrency = this.currency
-  },
   data: function () {
     return {
       inputAmount: null,
@@ -93,9 +96,13 @@ export default {
       withdrawAddress: null,
       transactionPendingUserAction: false,
       errorMessage: null,
+      latestBlock: null,
       transactionHash: null,
       transactionConfirmed: false
     }
+  },
+  created: function () {
+    this.selectedCurrency = this.currency
   },
   watch: {
     initialAmountWei: function () {
@@ -279,6 +286,8 @@ export default {
               return
             }
 
+            this.latestBlock = result
+
             if (result.transactions.indexOf(this.transactionHash) > -1) {
               resolve(true)
               filter.stopWatching()
@@ -365,23 +374,21 @@ export default {
       this.errorMessage = null
 
       const transactionData = {
-        gasPrice: window.web3.toHex(this.gasPrice),
-        gas: window.web3.toHex(this.gasLimit),
-        from: this.addHexPrefix(this.address),
-        to: this.addHexPrefix(this.withdrawAddress),
-        value: window.web3.toHex(this.transactionTotalWei)
+        gasPrice: this.gasPrice,
+        gas: this.gasLimit,
+        from: this.address,
+        to: this.withdrawAddress,
+        value: this.transactionTotalWei
       }
 
-      var signedSerializedTransactionDataHex
-
       try {
-        signedSerializedTransactionDataHex = this.signSerializeTransactionDataHex(transactionData, this.privateKey)
+        var signedTransactionData = this.signRawTransactionData(transactionData, this.privateKey)
       } catch (error) {
         this.errorMessage = error.message
         return
       }
 
-      window.web3.eth.sendRawTransaction(signedSerializedTransactionDataHex, (error, transactionHash) => {
+      window.web3.eth.sendRawTransaction(signedTransactionData, (error, transactionHash) => {
         if (error) {
           this.errorMessage = error.message
           throw error
@@ -404,6 +411,15 @@ export default {
 }
 
 .transaction-status {
+}
+
+.transaction-status .latest-block {
+  margin-top: 0.5rem;
+  font-size: 80%;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .field:last-child {
