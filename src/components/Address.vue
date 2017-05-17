@@ -18,9 +18,11 @@
                 <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading...
               </span>
               <span v-else>
-                <strong>{{ balanceWei | weiToEther(false) }}</strong> ether
+                <strong>{{ balanceEther }}</strong> ether
               </span>
-              <span class="balance-currency" v-if="balanceCurrency">{{ balanceCurrency }}</span>
+              <span class="balance-currency" v-if="balanceCurrency">
+                {{ balanceCurrency }}
+              </span>
             </h2>
           </div>
         </div>
@@ -60,6 +62,7 @@
 
 <script>
 import BigNumber from 'bignumber.js'
+import { privateKeyToAddress } from '../helpers/web3'
 
 export default {
   name: 'Address',
@@ -78,18 +81,30 @@ export default {
       var address
 
       try {
-        address = this.privateKeyToAddress(this.privateKey)
+        address = privateKeyToAddress(this.privateKey)
       } catch (e) {
         this.$router.push({name: 'InvalidAddress'})
         return
       }
 
-      this.addPrivateKeyToHistory(this.privateKey)
+      this.$store.commit('ADD_TO_HISTORY', { privateKey: this.privateKey })
 
       return address
     },
     balanceCurrency: function () {
-      return this.weiToCurrency(this.balanceWei, true)
+      if (!this.balanceWei || !this.$store.state.currency.exchangeRate) {
+        return
+      }
+
+      const value = this.balanceWei.times('1e-18').times(this.$store.state.currency.exchangeRate)
+      return value + ' ' + this.$store.state.currency.code
+    },
+    balanceEther: function () {
+      if (!this.balanceWei) {
+        return
+      }
+
+      return window.web3.fromWei(this.balanceWei, 'ether').toPrecision()
     }
   },
   asyncComputed: {

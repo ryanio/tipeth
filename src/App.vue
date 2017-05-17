@@ -30,7 +30,11 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  created: function () {
+    // init exchangeRate
+    this.$store.dispatch('updateExchangeRate')
+  }
 }
 </script>
 

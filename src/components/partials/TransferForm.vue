@@ -6,27 +6,31 @@
           {{ errorMessage }}
         </div>
 
+        <div class="field field-withdraw" v-if="transferType === 'withdraw'">
+          <input class="input" type="text" placeholder="Address to withdraw to" v-model="withdrawAddress" @keyup.enter="transfer" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+        </div>
+
         <div class="field has-addons">
           <p class="control is-expanded">
-            <input class="input" type="number" step="any" min="0" v-model="inputAmount" placeholder="Amount" @keyup.enter="transfer"required>
+            <input class="input" type="number" step="any" min="0" v-model="inputAmount" placeholder="Amount" @keyup.enter="transfer" required>
           </p>
           <p class="control">
             <span class="select" v-if="transferType === 'deposit'">
-              <select v-model="selectedCurrency">
-                <option value="ETH">Ether (ETH)</option>
-                <option v-for="currency in currencies" v-bind:value="currency">
+              <select v-model="selectedCurrencyCode">
+                <option value="ETH">ether</option>
+                <option v-for="currency in currencies" v-bind:value="currency.code">
                   {{ currency.label }}
                 </option>
               </select>
             </span>
             <span v-else>
-              <input class="input" value="Ether (ETH)" disabled>
+              <input class="input" value="ether" disabled>
             </span>
           </p>
         </div>
 
         <div v-if="transferType == 'deposit'">
-          <div v-if="inputAmount > 0 && selectedCurrency !== 'ETH'">
+          <div v-if="inputAmount > 0 && selectedCurrencyCode !== 'ETH'">
            <div class="field">
             <input class="input input-currency-conversion" type="text" :value="currencyConversionInputValue" disabled>
           </div>
@@ -39,10 +43,6 @@
 
           <div class="field field-total" v-if="transferAmountWei > 0">
            <input class="input is-disabled" type="text" :value="totalFieldInputValue" disabled>
-         </div>
-
-         <div class="field field-withdraw" v-if="transferAmountWei > 0 && transactionTotalWei > 0">
-           <input class="input" type="text" placeholder="Address to withdraw to" v-model="withdrawAddress" @keyup.enter="transfer" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required>
          </div>
         </div>
 
@@ -76,6 +76,8 @@
 
 <script>
 import BigNumber from 'bignumber.js'
+import { currencies } from '../../helpers/currency'
+import { signRawTransactionData } from '../../helpers/web3'
 
 export default {
   name: 'TransferForm',
@@ -92,7 +94,8 @@ export default {
   data: function () {
     return {
       inputAmount: null,
-      selectedCurrency: null,
+      currencies: currencies,
+      selectedCurrencyCode: this.$store.state.currency.code,
       withdrawAddress: null,
       transactionPendingUserAction: false,
       errorMessage: null,
@@ -101,21 +104,17 @@ export default {
       transactionConfirmed: false
     }
   },
-  created: function () {
-    this.selectedCurrency = this.currency
-  },
   watch: {
     initialAmountWei: function () {
       this.inputAmount = window.web3.fromWei(this.initialAmountWei, 'ether')
     },
-    selectedCurrency: function () {
-      if (this.selectedCurrency !== 'ETH') {
-        this.currency = this.selectedCurrency
-        this.$emit('refreshCurrency')
+    selectedCurrencyCode: function () {
+      if (this.selectedCurrencyCode !== 'ETH') {
+        this.$store.dispatch('updateCurrency', {currencyCode: this.selectedCurrencyCode})
       }
     },
     transactionHash: function () {
-      this.addPrivateKeyToHistory(this.privateKey)
+      this.$store.commit('ADD_TO_HISTORY', {privateKey: this.privateKey})
       this.$emit('transactionPending')
     },
     transactionConfirmed: function () {
@@ -137,11 +136,11 @@ export default {
         return window.web3.toWei(this.inputAmount, 'ether')
       }
 
-      if (!this.currencyConversionRate) {
+      if (!this.$store.state.currency.exchangeRate) {
         return
       }
 
-      const ether = new BigNumber(this.inputAmount).dividedBy(this.currencyConversionRate)
+      const ether = new BigNumber(this.inputAmount).dividedBy(this.$store.state.currency.exchangeRate)
       const wei = window.web3.toWei(ether, 'ether').round()
       return wei
     },
@@ -169,19 +168,19 @@ export default {
     currencyConversionInputValue: function () {
       var text = ''
 
-      if (!this.currencyConversionRate) {
+      if (!this.$store.state.currency.exchangeRate) {
         return 'Loading conversion rate...'
       }
 
-      const ether = new BigNumber(this.inputAmount).dividedBy(this.currencyConversionRate)
+      const ether = new BigNumber(this.inputAmount).dividedBy(this.$store.state.currency.exchangeRate)
 
       text += 'Total: '
 
       text += ether
       text += ' ether (1 ether = '
-      text += this.currencyConversionRate
+      text += this.$store.state.currency.exchangeRate
       text += ' '
-      text += this.currency.code
+      text += this.$store.state.currency.code
 
       text += ' via coinmarketcap.com)'
 
@@ -210,11 +209,11 @@ export default {
       text += totalEther
       text += ' ether'
 
-      if (this.currencyConversionRate) {
+      if (this.$store.state.currency.exchangeRate) {
         text += ' ('
-        text += totalEther * this.currencyConversionRate
+        text += totalEther * this.$store.state.currency.exchangeRate
         text += ' '
-        text += this.currency.code
+        text += this.$store.state.currency.code
         text += ')'
       }
 
@@ -250,18 +249,6 @@ export default {
           }
 
           resolve(result)
-        })
-      })
-    },
-    nonce: function () {
-      return new Promise((resolve, reject) => {
-        window.web3.eth.getTransactionCount(this.addHexPrefix(this.address), (error, result) => {
-          if (error) {
-            reject(error)
-            return
-          }
-
-          resolve(result + 1)
         })
       })
     },
@@ -360,11 +347,6 @@ export default {
         return
       }
 
-      if (!this.nonce) {
-        this.errorMessage = 'Waiting for account nonce. Please try again.'
-        return
-      }
-
       const confirm = window.confirm('Please double-check that the address you are withdrawing to is accurate. This is irreversible')
 
       if (!confirm) {
@@ -382,7 +364,7 @@ export default {
       }
 
       try {
-        var signedTransactionData = this.signRawTransactionData(transactionData, this.privateKey)
+        var signedTransactionData = signRawTransactionData(transactionData, this.privateKey)
       } catch (error) {
         this.errorMessage = error.message
         return

@@ -5,9 +5,6 @@ const mixin = {
     }
   },
   methods: {
-    reverseArray: function (array) {
-      return array.slice().reverse()
-    },
     inputSelectAll: function (input) {
       return input.target.setSelectionRange(0, input.target.value.length)
     }

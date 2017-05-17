@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import { generateAddress } from '../helpers/web3'
+
 export default {
   name: 'NewAddress',
   components: {
@@ -70,7 +72,7 @@ export default {
     address: function () {
       return new Promise((resolve, reject) => {
         this.waitForWeb3().then(() => {
-          this.generateAddress().then((data) => {
+          generateAddress().then((data) => {
             this.privateKey = data.privateKey
             resolve(data.address)
           }, (error) => {

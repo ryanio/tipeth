@@ -41,7 +41,7 @@
                     Balance (ether)
                   </th>
                   <th>
-                    Balance ({{ currency.code }})
+                    Balance ({{ $store.state.currency.code }})
                   </th>
                   <td><!-- for delete icon --></td>
                 </tr>
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'History',
   components: {
@@ -67,8 +69,9 @@ export default {
   },
   created: function () {
   },
-  watch: {
-  },
+  computed: mapState({
+    history: state => state.history.history
+  }),
   methods: {
     confirmDelete: function (index) {
       const confirm = window.confirm('Are you sure you want to delete this record? This is irreversible')
@@ -77,7 +80,9 @@ export default {
         return
       }
 
-      this.history.splice(index, 1)
+      const privateKey = this.$store.state.history.history[index]
+
+      this.$store.commit('REMOVE_FROM_HISTORY', { privateKey })
     },
     confirmDeleteAll: function () {
       const confirm = window.confirm('Are you sure you want to delete all history? This is irreversible')
@@ -86,7 +91,7 @@ export default {
         return
       }
 
-      this.history = []
+      this.$store.commit('CLEAR_HISTORY')
     }
   }
 }

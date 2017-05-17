@@ -5,8 +5,8 @@
         {{ privateKey | permalink }}
       </router-link>
     </td>
-    <td class="address" :title="privateKeyToAddress(privateKey)" >
-      {{ privateKeyToAddress(privateKey) }}
+    <td class="address" :title="address" >
+      {{ address }}
     </td>
     <td class="balance" :title="balance">
       {{ balance }}
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { privateKeyToAddress } from '../../helpers/web3'
+
 export default {
   name: 'HistoryTr',
   props: [
@@ -32,10 +34,14 @@ export default {
   },
   computed: {
     address: function () {
-      return this.privateKeyToAddress(this.privateKey)
+      return privateKeyToAddress(this.privateKey)
     },
     balanceCurrency: function () {
-      return this.etherToCurrency(this.balance, false)
+      if (!this.balance || !this.$store.state.currency.exchangeRate) {
+        return
+      }
+
+      return this.balance * this.$store.state.currency.exchangeRate
     }
   },
   asyncComputed: {
