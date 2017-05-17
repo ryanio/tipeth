@@ -32,7 +32,7 @@
 export default {
   name: 'app',
   created: function () {
-    // init exchangeRate
+    // fetch exchangeRate
     this.$store.dispatch('updateExchangeRate')
   }
 }
