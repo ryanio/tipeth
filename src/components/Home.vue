@@ -16,16 +16,13 @@
         <div class="tile is-parent notification is-info" v-show="showLearnMore">
           <div class="content">
             <p class="title is-spaced">
-              tipeth is a <abbr title="decentralized app">dapp</abbr> connected to the
-              <a href="https://ethereum.org" target="_blank" title="Learn more at ethereum.org">Ethereum</a> network that makes it easy to give small ($1) amounts of money with just a url.
+              tipeth is a <abbr title="decentralized app">dapp</abbr> connected to the <a href="https://ethereum.org" target="_blank" title="Learn more at ethereum.org">Ethereum</a> network that makes it easy to give small ($1) amounts of money with just a url.
             </p>
             <p class="subtitle">
-              A tipeth url contains the key
-              <input value="https://tipeth.com/ac7aab7dd3ad5cac72eb6590ade8aee020c649fe31e2be48c32e83ec696d48fb" v-on:click="inputSelectAll">
-              that unlocks the balance inside.
+              A tipeth url contains the key <input value="https://tipeth.com/ac7aab7dd3ad5cac72eb6590ade8aee020c649fe31e2be48c32e83ec696d48fb" v-on:click="inputSelectAll"> that unlocks the balance inside.
             </p>
             <p class="subtitle">
-              It's easy to share over any chat, messenger, or app and fun to use online :)
+              It's easy and fun to share over any chat, messenger, app, or game :)
             </p>
             <div class="content">
               <p>
