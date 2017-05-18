@@ -19,7 +19,7 @@ npm run dev  # serve at localhost:8010
 # build for production
 npm run build
 
-# build for production view the bundle analyzer report
+# build for production with bundle analyzer report
 npm run build --report
 
 ```
