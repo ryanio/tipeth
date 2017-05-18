@@ -9,8 +9,6 @@ npm install  # install dependencies
 npm run dev  # serve at localhost:8010
 ```
 
-## Dev
-
 ### Build
 
 ``` bash
