@@ -25,7 +25,7 @@
               that unlocks the balance inside.
             </p>
             <p class="subtitle">
-              Easy to share over any chat, messenger, or app and fun to use online.
+              It's easy to share over any chat, messenger, or app and fun to use online :)
             </p>
             <div class="content">
               <p>
