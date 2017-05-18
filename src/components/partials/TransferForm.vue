@@ -268,8 +268,8 @@ export default {
           }
 
           window.web3.eth.getBlock(result, (error, result) => {
-            if (error) {
-              reject(error)
+            if (error || !result) {
+              reject(null)
               return
             }
 
