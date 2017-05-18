@@ -17,7 +17,7 @@
           <div class="content">
             <p class="title is-spaced">
               tipeth is a <abbr title="decentralized app">dapp</abbr> connected to the
-              <a href="https://ethereum.org" target="_blank" title="Learn more at ethereum.org">Ethereum</a> network that makes it easy to give small amounts of money with just a url.
+              <a href="https://ethereum.org" target="_blank" title="Learn more at ethereum.org">Ethereum</a> network that makes it easy to give small ($1) amounts of money with just a url.
             </p>
             <p class="subtitle">
               A tipeth url contains the key
