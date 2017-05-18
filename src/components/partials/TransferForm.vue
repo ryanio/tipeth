@@ -29,10 +29,10 @@
           </p>
         </div>
 
-        <div v-if="transferType == 'deposit'">
-          <div v-if="inputAmount > 0 && selectedCurrencyCode !== 'ETH'">
+        <div v-if="transferType === 'deposit'">
+          <div v-if="inputAmount > 0">
            <div class="field">
-            <input class="input input-currency-conversion" type="text" :value="currencyConversionInputValue" disabled>
+            <input class="input input-currency-conversion" type="text" :value="currencyInputValue" disabled>
           </div>
         </div>
       </div>
@@ -165,24 +165,38 @@ export default {
 
       return text
     },
-    currencyConversionInputValue: function () {
+    currencyInputValue: function () {
       var text = ''
 
       if (!this.$store.state.currency.exchangeRate) {
         return 'Loading conversion rate...'
       }
 
-      const ether = new BigNumber(this.inputAmount).dividedBy(this.$store.state.currency.exchangeRate)
+      if (this.selectedCurrencyCode === 'ETH') {
+        const currency = new BigNumber(this.inputAmount).times(this.$store.state.currency.exchangeRate)
 
-      text += 'Total: '
+        text += currency
+        text += ' '
+        text += this.$store.state.currency.code
 
-      text += ether
-      text += ' ether (1 ether = '
-      text += this.$store.state.currency.exchangeRate
-      text += ' '
-      text += this.$store.state.currency.code
+        text += ' (1 ether = '
+        text += this.$store.state.currency.exchangeRate
+        text += ' '
+        text += this.$store.state.currency.code
+        text += ' via coinmarketcap.com)'
+      } else {
+        const ether = new BigNumber(this.inputAmount).dividedBy(this.$store.state.currency.exchangeRate)
 
-      text += ' via coinmarketcap.com)'
+        text += 'Total: '
+
+        text += ether
+        text += ' ether (1 ether = '
+        text += this.$store.state.currency.exchangeRate
+        text += ' '
+        text += this.$store.state.currency.code
+
+        text += ' via coinmarketcap.com)'
+      }
 
       return text
     },
