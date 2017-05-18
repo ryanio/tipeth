@@ -19,7 +19,7 @@
           </p>
 
           <p>
-            If you are interested in contributing, please visit our <a href="https://github.com/ryanio/tipeth" target="_blank">GitHub repository</a>.
+            If you are interested in contributing, please visit our <a href="https://github.com/ryanio/tipeth" target="_blank">GitHub repository</a> <i class="fa fa-github-alt" aria-hidden="true"></i>
           </p>
 
           <!-- future: subreddit, twitter -->
