@@ -57,15 +57,15 @@
           </div>
           <div v-else>
             Transaction sent! Watching network for confirmation... <i class="fa fa-circle-o-notch fa-spin fa-fw has-text-success"></i> 
-            <div class="latest-block">
-              <div v-if="latestBlock">
+            <div class="transaction-meta">
+              <span v-if="latestBlock">
                 <strong>Latest block:</strong>
                 {{ latestBlock.hash }}
-              </div>
-              <div v-else>
+              </span>
+              <span v-else>
                 <strong>Transaction hash:</strong>
                 {{ transactionHash }}
-              </div>
+              </span>
             </div>
           </div>
         </div>
@@ -395,10 +395,10 @@ export default {
 .transaction-status {
 }
 
-.transaction-status .latest-block {
+.transaction-meta {
   margin-top: 0.5rem;
-  font-size: 80%;
-  width: 100%;
+  font-size: 75%;
+  width: calc(500px - 3rem);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
