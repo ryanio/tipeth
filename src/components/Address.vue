@@ -97,7 +97,7 @@ export default {
       }
 
       const value = this.balanceWei.times('1e-18').times(this.$store.state.currency.exchangeRate)
-      return value + ' ' + this.$store.state.currency.code.toLowerCase()
+      return value + ' ' + this.$store.state.currency.code
     },
     balanceEther: function () {
       if (!this.balanceWei) {
