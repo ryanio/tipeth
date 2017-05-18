@@ -16,8 +16,8 @@
         <div class="tile is-parent notification is-info" v-show="showLearnMore">
           <div class="content">
             <p class="title is-spaced">
-              tipeth is an app connected to the
-              <a href="https://ethereum.org" target="_blank" title="Learn more at ethereum.org">Ethereum</a> network that makes it easy to send small amounts of money with just a url.
+              tipeth is a <abbr title="decentralized app">dapp</abbr> connected to the
+              <a href="https://ethereum.org" target="_blank" title="Learn more at ethereum.org">Ethereum</a> network that makes it easy to give small amounts of money with just a url.
             </p>
             <p class="subtitle">
               A tipeth url contains the key
@@ -25,14 +25,11 @@
               that unlocks the balance inside.
             </p>
             <p class="subtitle">
-              Easy to share over any chat, messenger, or app and fun for games and online communities <small>like reddit!</small>
+              Easy to share over any chat, messenger, or app and fun to use online.
             </p>
             <div class="content">
               <p>
                 This app's code is <router-link to="/about">open source</router-link> and runs entirely in your browser with no external servers.
-              </p>
-              <p class="currently">
-                The only external call is for the excellent <a href="https://coinmarketcap.com/api" target="_blank">exchange rate api</a> from <a href="https://coinmarketcap.com" target="_blank">coinmarketcap.com</a>
               </p>
             </div>
           </div>
