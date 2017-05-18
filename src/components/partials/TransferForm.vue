@@ -6,10 +6,6 @@
           {{ errorMessage }}
         </div>
 
-        <div class="field field-withdraw" v-if="transferType === 'withdraw'">
-          <input class="input" type="text" placeholder="Address to withdraw to" v-model="withdrawAddress" @keyup.enter="transfer" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required>
-        </div>
-
         <div class="field has-addons">
           <p class="control is-expanded">
             <input class="input" type="number" step="any" min="0" v-model="inputAmount" placeholder="Amount" @keyup.enter="transfer" required>
@@ -19,7 +15,7 @@
               <select v-model="selectedCurrencyCode">
                 <option value="ETH">ether</option>
                 <option v-for="currency in currencies" v-bind:value="currency.code">
-                  {{ currency.label }}
+                  {{ currency.label.toLowerCase() }}
                 </option>
               </select>
             </span>
@@ -31,11 +27,11 @@
 
         <div v-if="transferType === 'deposit'">
           <div v-if="inputAmount > 0">
-           <div class="field">
-            <input class="input input-currency-conversion" type="text" :value="currencyInputValue" disabled>
+             <div class="field">
+              <input class="input input-currency-conversion" type="text" :value="currencyInputValue" disabled>
+            </div>
           </div>
         </div>
-      </div>
         <div v-else>
           <div class="field field-gas" v-if="transferAmountWei > 0">
            <input class="input is-disabled" type="text" :value="gasFieldInputValue" disabled>
@@ -44,6 +40,10 @@
           <div class="field field-total" v-if="transferAmountWei > 0">
            <input class="input is-disabled" type="text" :value="totalFieldInputValue" disabled>
          </div>
+
+          <div class="field field-withdraw" v-if="transferAmountWei > 0">
+            <input class="input" type="text" placeholder="Address to withdraw to" v-model="withdrawAddress" @keyup.enter="transfer" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+          </div>
         </div>
 
         <div class="button-container">
@@ -177,23 +177,23 @@ export default {
 
         text += currency
         text += ' '
-        text += this.$store.state.currency.code
+        text += this.$store.state.currency.code.toLowerCase()
 
         text += ' (1 ether = '
         text += this.$store.state.currency.exchangeRate
         text += ' '
-        text += this.$store.state.currency.code
+        text += this.$store.state.currency.code.toLowerCase()
         text += ' via coinmarketcap.com)'
       } else {
         const ether = new BigNumber(this.inputAmount).dividedBy(this.$store.state.currency.exchangeRate)
 
-        text += 'Total: '
+        text += 'total: '
 
         text += ether
         text += ' ether (1 ether = '
         text += this.$store.state.currency.exchangeRate
         text += ' '
-        text += this.$store.state.currency.code
+        text += this.$store.state.currency.code.toLowerCase()
 
         text += ' via coinmarketcap.com)'
       }
@@ -216,7 +216,7 @@ export default {
         return 'Loading network transaction cost...'
       }
 
-      var text = 'Total: '
+      var text = 'total: '
 
       const totalEther = window.web3.fromWei(this.transactionTotalWei, 'ether')
 
@@ -227,7 +227,7 @@ export default {
         text += ' ('
         text += totalEther * this.$store.state.currency.exchangeRate
         text += ' '
-        text += this.$store.state.currency.code
+        text += this.$store.state.currency.code.toLowerCase()
         text += ')'
       }
 
