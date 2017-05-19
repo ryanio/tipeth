@@ -3,6 +3,7 @@
     <section class="hero is-light">
       <div class="hero-body">
         <div class="container">
+          <div class="subtitle">Give money easily, freely</div>
           <router-link to="/new" class="button is-success">
             <i class="fa fa-plus-circle" aria-hidden="true"></i> New tipeth
           </router-link>
@@ -22,13 +23,8 @@
               A tipeth url contains the key <input value="https://tipeth.com/ac7aab7dd3ad5cac72eb6590ade8aee020c649fe31e2be48c32e83ec696d48fb" v-on:click="inputSelectAll"> that unlocks the balance inside.
             </p>
             <p class="subtitle">
-              It's easy and fun to share over any chat, messenger, app or game :)
+              It's fun and easy to share over any chat, messenger, app or game :)
             </p>
-            <div class="content">
-              <p>
-                This app's code is <router-link to="/about">open source</router-link> and runs entirely in your browser with no external servers.
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -77,11 +73,11 @@ export default {
 }
 
 input {
-  color: #f8f8f8;
+  color: #f5f5f5;
   background-color: #699ee2;
-  font-size: 0.9rem;
+  font-size: 75%;
   border: 0;
-  padding: 0.4rem;
+  padding: 0.35rem;
   border-radius: 0.2rem;
   margin: 0 0.1rem;
   width: 13rem;
