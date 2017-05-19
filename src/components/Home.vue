@@ -22,7 +22,7 @@
               A tipeth url contains the key <input value="https://tipeth.com/ac7aab7dd3ad5cac72eb6590ade8aee020c649fe31e2be48c32e83ec696d48fb" v-on:click="inputSelectAll"> that unlocks the balance inside.
             </p>
             <p class="subtitle">
-              It's easy and fun to share over any chat, messenger, app, or game :)
+              It's easy and fun to share over any chat, messenger, app or game :)
             </p>
             <div class="content">
               <p>
