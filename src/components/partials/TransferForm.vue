@@ -15,7 +15,7 @@
               <select v-model="selectedCurrencyCode">
                 <option value="ETH">ether</option>
                 <option v-for="currency in currencies" v-bind:value="currency.code">
-                  {{ currency.label.toLowerCase() }}
+                  {{ currency.label }}
                 </option>
               </select>
             </span>
